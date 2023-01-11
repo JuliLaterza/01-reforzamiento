@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 
 
 interface AuthState {
@@ -12,7 +12,7 @@ interface AuthState {
 const initialState: AuthState = {
     validando: true,
     token: null,
-    nombre: '',
+    nombre: 'Juli',
     username: '',
 }
 
@@ -41,34 +41,74 @@ const authReducer = (state: AuthState, action: AuthAction ): AuthState => {
 }
 
 export default function Login() {
-  return (
-    
-    const [state, dispatch] = useReducer(authReducer, initialState);
+
+    const [{ validando, token, nombre, username }, dispatch] = useReducer(authReducer, initialState);
+
+    useEffect(() => {
+        setTimeout(() => {
+            dispatch({ type: 'logout' });
+        }, 1500);
+    }, []);
+
+    const login = () => {
+        dispatch({
+            type: 'login',
+            payload: {
+                nombre: 'Juli',
+                username: 'julian',
+            }
+        });
+    };
+
+    const logout = () => {
+        dispatch({ type: 'logout' });
+    }
+
+    if (validando) {
+        return (
+            <>
+                <h3>Login</h3>
+                <div className="alert alert-info">
+                    Validando... {nombre}
+                </div>
+            </>
+        )
+    }
+        return (
+            <>
+                <h3>Login</h3>
+                {
+                    (token)
+                        ? <div className="alert alert-success"> Autenticado. </div>
+                        : <div className="alert alert-danger"> No autenticado. </div>
+                }
+
+                {
+                    (token)
+                        ? <button className='btn btn-danger' onClick={ logout } >Log Out</button>
+                        : <button className='btn btn-primary' onClick={ login } >Log In</button>
+                }
+                
+                
+            </>
+        )
     
 
-    <>
-        <h3>Login</h3>
+    return (
         
-        <div className="alert alert-info">
-            Validando...
-        </div>
-        <div className="alert alert-danger">
-            No Autenticado.
-        </div>
-        <div className="alert alert-success">
-            Autenticado.
-        </div>
+        
 
-        <button
-            className="btn btn-primary"
-        >
-            Login
-        </button>
-        <button
-            className="btn btn-danger"
-        >
-            Log Out
-        </button>
-    </>
-  )
+        <>
+            <button
+                className="btn btn-primary"
+            >
+                Login
+            </button>
+            <button
+                className="btn btn-danger"
+            >
+                Log Out
+            </button>
+        </>
+    )
 }
