@@ -1,24 +1,13 @@
-import React, { useEffect, useState} from 'react'
-import { reqRestapi } from '../api/reqRes'
-import { ReqResListado, Usuario } from '../interfaces/reqRes' 
+import { useUsuario } from '../hooks/useUsuario'
+import { Usuario } from '../interfaces/reqRes' 
 
 export const Usuarios = () => {
     
-    const [usuarios, setUsuarios] = useState<Usuario[]>([])
+    const { usuarios, cargarUsuarios, paginaAnterior, paginaSiguiente } = useUsuario();
 
-
-    useEffect(() => {
-        reqRestapi.get<ReqResListado>('/users')
-        .then(resp => {
-            setUsuarios( resp.data.data ) //Esto lo puedo hacer porque setUusiarios espera un tipo de dato de usuario. DATA es tipo de USUARIO
-        })
-        .catch(console.log)
-    }, [])
-
-    
     const renderItem = (usuario: Usuario) => {
         return(
-            <tr key={usuario.id.toString()}>
+            <tr key={usuario.id.toString() }>
                 <td>
                     <img
                     src={usuario.avatar}
@@ -31,7 +20,6 @@ export const Usuarios = () => {
                 </td>
                 <td>{usuario.first_name} {usuario.last_name}</td>
                 <td>{usuario.email}</td>
-
             </tr>
         )
     }
@@ -54,8 +42,11 @@ export const Usuarios = () => {
                 }
             </body>
         </table>
-        <button className='btn btn-primary' >
+        <button className='btn btn-primary' onClick={ paginaSiguiente } >
                 Siguientes
+        </button>
+        <button className='btn btn-danger' onClick={ paginaAnterior } >
+                Atrás
         </button>
     </>
     )
