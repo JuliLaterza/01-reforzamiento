@@ -4,7 +4,7 @@
 //import { Contador } from "./components/Contador";
 //import { ContadorConHook } from "./components/ContadorConHook";
 import Login from "./components/Login";
-import { Usuario } from "./components/Usuario";
+import { Usuarios } from "./components/Usuario";
 
 const App = () => {
   return (
@@ -17,7 +17,7 @@ const App = () => {
         {/*<Contador /> */}
         {/*<ContadorConHook />*/}
         {/*<Login/>*/}
-        <Usuario />
+        <Usuarios />
     </div>
   )
 }
