@@ -1,14 +1,18 @@
-import { useState } from "react"
 import { useForm } from "../hooks/useForm"
 
 
 export const Formularios = () => {
 
-    const { state,email,password, onChange } = useForm()
+    const { formulario ,email ,password, onChange } = useForm(
+        {
+            email: 'testeando@gmail.com',
+            password: '123456'
+        }
+    )
 
     return (
         <>
-            <h3>Formlarios</h3>
+            <h3>Formulario</h3>
             <input type="text"
             className="form-control"
             placeholder="Email / User"
@@ -25,7 +29,7 @@ export const Formularios = () => {
             />
 
             <code>
-                <pre>{ JSON.stringify(state,null,2) }</pre>
+                <pre>{ JSON.stringify(formulario,null,2) }</pre>
             </code>
         </>
     )
